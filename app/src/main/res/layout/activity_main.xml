@@ -29,13 +29,13 @@
         android:layout_marginTop="7dp"
         android:layout_marginEnd="93dp"
         android:layout_marginBottom="232dp"
-        android:text="Sinh viên Khoa CNTT - DHSPKTHCM"
+        android:text="Sinh viên Khoa CNTT - ĐHSPKTTPHCM"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.107" />
 
     <TextView
         android:id="@+id/textView"
