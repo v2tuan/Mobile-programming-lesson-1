@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class PrimeNumbersActivity extends AppCompatActivity {
     private EditText etInput;
@@ -46,14 +47,27 @@ public class PrimeNumbersActivity extends AppCompatActivity {
         btnSquares.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Integer> numbers = generateArray();
-                ArrayList<Integer> squares = findSquares(numbers);
 
-                // Hiển thị kết quả
-                tvOutput.setText("Số chính phương: " + squares.toString());
-                Toast toast = Toast.makeText(getApplicationContext(), "Số chính phương: " + squares.toString(), Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 100);  // Gravity.TOP: đặt thông báo ở trên cùng, 0 và 100 là vị trí lệch theo trục x và y
-                toast.show();
+                // Lấy số phần tử mà người dùng nhập vào
+                int numElements = getUserInput();
+
+                if (numElements > 0) {
+                    // Tạo mảng ngẫu nhiên với số phần tử như người dùng nhập
+                    ArrayList<Integer> randomNumbers = generateRandomArray(numElements);
+
+                    // Lọc các số chính phương trong mảng
+                    ArrayList<Integer> squares = findSquares(randomNumbers);
+
+                    // Hiển thị các số chính phương trong một Toast
+                    Toast toast = Toast.makeText(getApplicationContext(), "Số chính phương: " + squares.toString(), Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.TOP, 0, 100);  // Gravity.TOP: đặt thông báo ở trên cùng
+                    toast.show();
+
+                    // Hiển thị số ngẫu nhiên trên màn hình
+                    tvOutput.setText("Mảng ngẫu nhiên: " + randomNumbers.toString());
+                } else {
+                    Toast.makeText(PrimeNumbersActivity.this, "Vui lòng nhập số phần tử hợp lệ!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -76,6 +90,28 @@ public class PrimeNumbersActivity extends AppCompatActivity {
         }
 
         return numberList;
+    }
+
+    // Hàm lấy số phần tử từ EditText
+    private int getUserInput() {
+        String inputText = etInput.getText().toString().trim();
+        try {
+            return Integer.parseInt(inputText); // Chuyển đổi thành số nguyên
+        } catch (NumberFormatException e) {
+            Log.e("Lỗi nhập liệu", "Không thể chuyển chuỗi thành số: " + e.getMessage());
+            return 0; // Trả về 0 nếu không thể chuyển đổi
+        }
+    }
+
+    // Hàm tạo mảng ngẫu nhiên
+    private ArrayList<Integer> generateRandomArray(int numElements) {
+        ArrayList<Integer> randomNumbers = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < numElements; i++) {
+            // Tạo số ngẫu nhiên trong phạm vi từ 1 đến 100
+            randomNumbers.add(random.nextInt(100)+1);
+        }
+        return randomNumbers;
     }
 
     private ArrayList<Integer> findPrimes(ArrayList<Integer> numbers) {
